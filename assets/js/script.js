@@ -13,60 +13,38 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-// 26 characters
 var lowLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var upLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-
-//31 characters
 var specChar = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", "~", "`", "'", ";", ":", ",", "<", ".", ">", "/", "?"];
 specChar.push('"');
-
-// 9 characters
 var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-
-var lowLetterCheck = false;
-var upLetterCheck = false;
-var specCharCheck = false;
-var numberCheck = false
-
+var chosenChars = [];
 
 function generatePassword() {
 
   var password = ""
-  var chosenChars = [];
 
- var passwordLength = getPasswordLength()
+  var passwordLength = getPasswordLength();
+  getLowLetter();
+  getUpLetter();
+  getSpecChar();
+  getNumbers();
 
-
-
-
-
- /* 
-  if (x = x) {
+  if(getPasswordLength===null||getLowLetter===null||getUpLetter===null||getSpecChar===null||getNumbers===null){
+    var promptReset= confirm("You hit cancel on at least one of the prompts. Did you want to continue?")
+    if (promptReset === False){
+      return;
+    }
   }
-  if (x = x) {
-    chosenChars.push(upLetters);
-  }
-  if (x = x) {
-    chosenChars.push(specChar);
-  }
-  if (x = x) {
-    chosenChars.push(numbers);
-  }
-  for(var i=0; 1<passwordLength; i++){
-    password = password.concat(chosenChars[getRandomChar(passwordLength)])
-  }
-*/
 
+  for(i=0;i<passwordLength;i++){
+  password = password+chosenChars[getRandomChar(chosenChars.length-1)]
+  }
 
-
-return password;
+  return password;
 
 }
-
-
-
 
 function getRandomChar(max) {
   min = Math.ceil(1);
@@ -74,66 +52,84 @@ function getRandomChar(max) {
   return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
-function getPasswordLength(){
+function getPasswordLength() {
   var passwordLength = prompt("Please enter a chacter length between 8 and 128")
-  if (passwordLength >=8 && passwordLength <=128){
+  if (passwordLength >= 8 && passwordLength <= 128) {
     return passwordLength;
   }
   else if (passwordLength === null) {
     return;
-   }
-  else{
-    alert("incorrect input please try again")
+  }
+  else {
+    alert("incorrect input, please try again")
     getPasswordLength();
   }
 }
 
-function getLowLetter(){
-  var letter = prompt("Do you want to include ")
-  if (letter === yes){
+function getLowLetter() {
+  var char = prompt("Do you want to include lower case letter? type yes/no: ")
+  if (char === "yes") {
     chosenChars.push(lowLetters);
   }
-  else if (letter === no) {
+  else if (char === "no") {
     return
-   }
-  else if (passwordLength === null) {
+  }
+  else if (char === null) {
     return;
-   }
-  else{
-    alert("incorrect input please try again")
-    getPasswordLength();
+  }
+  else {
+    alert("incorrect input, please try again")
+    getLowLetter();
   }
 }
 
-function getUpLetter(){
-  var letter = prompt("Please enter a chacter length between 8 and 128")
-  if (letter === yes){
-    chosenChars.push(lowLetters);
+function getUpLetter() {
+  var char = prompt("Do you want to include upper case letter? type yes/no: ")
+  if (char === "yes") {
+    chosenChars.push(upLetters);
   }
-  else if (letter === no) {
+  else if (char === "no") {
     return
-   }
-  else if (passwordLength === null) {
+  }
+  else if (char === null) {
     return;
-   }
-  else{
-    alert("incorrect input please try again")
-    getPasswordLength();
+  }
+  else {
+    alert("incorrect input, please try again")
+    getUpLetter();
   }
 }
 
+function getSpecChar() {
+  var char = prompt("Do you want to include special characters? type yes/no: ")
+  if (char === "yes") {
+    chosenChars.push(specChar);
+  }
+  else if (char === "no") {
+    return
+  }
+  else if (char === null) {
+    return;
+  }
+  else {
+    alert("incorrect input, please try again")
+    getSpecChar();
+  }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+function getNumbers() {
+  var char = prompt("Do you want to include numbers? type yes/no: ")
+  if (char === "yes") {
+    chosenChars.push(numbers);
+  }
+  else if (char === "no") {
+    return
+  }
+  else if (char === null) {
+    return;
+  }
+  else {
+    alert("incorrect input, please try again")
+    getNumbers();
+  }
 }
